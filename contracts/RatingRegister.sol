@@ -6,6 +6,8 @@ contract RatingRegister {
     // logicNameからinit code byteを持ってこれるようなmap
     mapping(string => bytes) public logicToInitCode;
 
+    string[] public logicList;
+
     event ContractCreated(string logicName, address contractAddress);
     event LogicRegistered(string logicName, bytes byteCode);
 
@@ -31,6 +33,12 @@ contract RatingRegister {
     // Login nameと、Rating contractを作成するcodeを登録する
     function registerLogic(string memory name, bytes memory byteCode) public {
         logicToInitCode[name] = byteCode;
+        logicList.push(name);
 	emit LogicRegistered(name, byteCode);
+    }
+
+    // logicListを取得する
+    function getLogicList() view public returns(string[] memory) {
+        return logicList;
     }
 }
