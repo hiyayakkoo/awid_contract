@@ -9,9 +9,11 @@ contract GameRegister {
     }
 
     mapping ( address => gameDescription ) gameDescriptions;
+    mapping ( address => address ) ratingGame;
+    mapping ( address => address[] ) gameRating;
 
     // ratingからgameアドレスを取得する
-    function getGameAddress(address ratingAddress) public {
+    function getGameAddress(address ratingAddress) public view returns (string memory){
     }
 
     // gameアドレスからメタデータを取得する
