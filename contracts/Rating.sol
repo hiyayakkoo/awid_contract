@@ -5,7 +5,7 @@ import "./ISchemaRegistry.sol";
 
 contract Rating {
     IEAS public eas = IEAS(0xC2679fBD37d54388Ce493F1DB75320D236e1815e);
-    bytes32 public SCHEMA_ID = 0x0;// 後でちゃんと作っていれる
+    bytes32 public SCHEMA_ID = 0xd942b1ae9506113dd2b9131a092b8d2fb588c08e10a2f3f013a375d8a973e3ea;
 
     mapping ( address => bytes32 ) private users;
 
