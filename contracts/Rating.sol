@@ -14,6 +14,18 @@ contract Rating {
         uint256 ratingValue;
     }
 
+    // ユーティリティ
+    function convertBytesToRating(bytes memory ratingBytes) public pure returns (address, uint256) {
+        (Rating memory rating) = abi.decode(ratingBytes, (Rating));
+        return (rating.EOAAddress, rating.ratingValue);
+    }
+
+    function convertRatingToBytes(address user, uint256 ratingValue) public pure returns (bytes memory) {
+        Rating memory rating = Rating({EOAAddress: user, ratingValue: ratingValue});
+        bytes memory ratingBytes = abi.encode(rating);
+        return ratingBytes;
+    }
+
     // 基本的にここは外から受け取る他は受け取らない？
     function update(address winner, address loser) public {
         // EASからrating valueの値を取得します
@@ -26,5 +38,15 @@ contract Rating {
         // 計算後のrating valueを格納します
         setRatingFor(winner, newWinnerRating);
         setRatingFor(loser, newLoserRating);
+    }
+
+    // EASから値を取得する
+    function getRatingFromEAS(address userAddress) private view returns(uint256) {
+        if (users[userAddress] == 0){
+            return 1500;
+        }
+        Attestation memory rating = eas.getAttestation(users[userAddress]);
+        (address user, uint256 ratingValue) = convertBytesToRating(rating.data);
+        return ratingValue;
     }
 }
