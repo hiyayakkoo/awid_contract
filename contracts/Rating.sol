@@ -13,4 +13,18 @@ contract Rating {
         address EOAAddress;
         uint256 ratingValue;
     }
+
+    // 基本的にここは外から受け取る他は受け取らない？
+    function update(address winner, address loser) public {
+        // EASからrating valueの値を取得します
+        uint256 winnerRating = getRatingFromEAS(winner);
+        uint256 loserRating = getRatingFromEAS(loser);
+
+        // 取得したrating valueの値を再計算します
+        (uint256 newWinnerRating, uint256 newLoserRating) = recalculateRatings(winnerRating, loserRating);
+
+        // 計算後のrating valueを格納します
+        setRatingFor(winner, newWinnerRating);
+        setRatingFor(loser, newLoserRating);
+    }
 }
