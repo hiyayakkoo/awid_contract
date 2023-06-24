@@ -3,6 +3,10 @@ pragma solidity ^0.8.9;
 contract GameRegister {
 
     // gameアドレスとgameDescriptionやgameTitleをmap
+    struct gameDescription {
+        string title;
+        string description;
+    }
 
     // ratingからgameアドレスを取得する
     function getGameAddress(address ratingAddress) public {
