@@ -1,7 +1,7 @@
 # Contract Address
 
 |Contract | Address |
-+---+---+
+|---|---|
 |Hoge | 0x00| 
 
 # Sample Hardhat Project
