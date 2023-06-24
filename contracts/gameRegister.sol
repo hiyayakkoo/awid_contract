@@ -15,7 +15,8 @@ contract GameRegister {
     }
 
     // gameアドレスからメタデータを取得する
-    function getMetadata(address gameAddress) public {
+    function getMetadata(address gameAddress) public view returns (gameDescription memory){
+        return gameDescriptions[gameAddress];
     }
     
     // gameアドレスからrating一覧を取得する
