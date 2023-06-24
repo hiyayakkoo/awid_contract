@@ -4,7 +4,7 @@ import "./IRatingStorage.sol";
 
 contract Rating {
 
-    IRatingStorage private ratingstorage = IRatingStorage(/* アドレス入れる */);
+    IRatingStorage private ratingstorage = IRatingStorage();
 
     struct Rating {
         address EOAAddress;

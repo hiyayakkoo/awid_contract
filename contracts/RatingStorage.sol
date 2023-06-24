@@ -22,21 +22,22 @@ contract RatingStorage {
 
     function postRating(address rating,address user,uint value) public {
         RatingUser memory game = RatingUser({user:user,ratingValue:value});
+        RatingGame memory userT = RatingGame({rating:rating,ratingValue:value});
+
         uint256 gameI = gameRatings[rating].length;
+        uint256 userI = userRatings[user].length;
+
         if (gameIndexes[rating][user] == 0){
             gameIndexes[rating][user] = gameI+1;
             gameRatings[rating].push(game);
         }else{
-            gameRatings[rating][gameIndexes[rating][user]] = game;
+            gameRatings[rating][gameIndexes[rating][user]-1] = game;
         }
-
-        uint256 userI = gameRatings[user].length;
-        RatingGame memory userT = RatingGame({rating:rating,ratingValue:value});
         if (userIndexes[user][rating] == 0){
+            userIndexes[user][rating] = userI+1;
             userRatings[user].push(userT);
-            userIndexes[user][rating] = userI;
         }else{
-            userRatings[user][userIndexes[user][rating]] = userT;
+            userRatings[user][userIndexes[user][rating]-1] = userT;
         }
     }
 
