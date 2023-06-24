@@ -1,6 +1,6 @@
 pragma solidity ^0.8.9;
 
-contract RatingStrage {
+contract RatingStorage {
     struct RatingUser {
         address user;
         uint256 ratingValue;

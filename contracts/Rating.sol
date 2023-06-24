@@ -1,10 +1,10 @@
 pragma solidity ^0.8.9;
 
-import "./IRatingStrage.sol";
+import "./IRatingStorage.sol";
 
 contract Rating {
 
-    IRatingStrage private ratingstrage = IRatingStrage(/* アドレス入れる */);
+    IRatingStorage private ratingstorage = IRatingStorage(/* アドレス入れる */);
 
     struct Rating {
         address EOAAddress;
@@ -27,15 +27,15 @@ contract Rating {
 
     // EASから値を取得する
     function getRatingFromEAS(address userAddress) private view returns(uint256) {
-        if (ratingstrage.getUserRating(address(this), userAddress) == 0){
+        if (ratingstorage.getUserRating(address(this), userAddress) == 0){
             return 1500;
         }
-        return ratingstrage.getUserRating(address(this), userAddress);
+        return ratingstorage.getUserRating(address(this), userAddress);
     }
 
     // EASに値を保存する
     function setRatingFor(address user,uint256 ratingValue) private {
-        ratingstrage.postRating(address(this), user, ratingValue);
+        ratingstorage.postRating(address(this), user, ratingValue);
     }
 
     // ratingを計算する

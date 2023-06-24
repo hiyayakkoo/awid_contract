@@ -10,7 +10,7 @@ struct RatingGame {
     uint256 ratingValue;
 }
 
-interface IRatingStrage {
+interface IRatingStorage {
 
     function postRating(address rating,address user,uint value) external;
 
