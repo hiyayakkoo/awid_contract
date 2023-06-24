@@ -25,6 +25,7 @@ contract RatingStrage {
         gameIndexe[rating][user] = gameI;
         RatingUser memory game = RatingUser({rating:user,ratingValue:value});
         gameRatings[rating].push(game);
+        
         uint256 userI = gameRatings[user].length;
         gameIndexe[user][rating] = userI;
         RatingUser memory userT = RatingUser({rating:rating,ratingValue:value});
