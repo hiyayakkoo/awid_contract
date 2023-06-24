@@ -21,15 +21,23 @@ contract RatingStrage {
     mapping ( address => mapping(address => uint256) ) private userIndexe;
 
     function postRating(address rating,address user,uint value) public {
-        uint256 gameI = gameRatings[rating].length;
-        gameIndexe[rating][user] = gameI;
         RatingUser memory game = RatingUser({rating:user,ratingValue:value});
-        gameRatings[rating].push(game);
-        
+        uint256 gameI = gameRatings[rating].length;
+        if (gameIndexe[rating][user] == 0){
+            gameIndexe[rating][user] = gameI+1;
+            gameRatings[rating].push(game);
+        }else{
+            gameRatings[rating][gameIndexe[rating][user]] = game;
+        }
+
         uint256 userI = gameRatings[user].length;
-        gameIndexe[user][rating] = userI;
         RatingUser memory userT = RatingUser({rating:rating,ratingValue:value});
-        gameRatings[user].push(userT);
+        if (gameIndexe[user][rating] == 0){
+            gameRatings[user].push(userT);
+            gameIndexe[user][rating] = userI;
+        }else{
+            gameRatings[user][userIndexe[user][rating]] = userT;
+        }
     }
 
     function getRatingAll(address rating) public view returns (RatingUser[] memory) {
@@ -41,6 +49,9 @@ contract RatingStrage {
     }
 
     function getUserRating(address rating,address user) public view returns (uint256) {
-        return getUserAll(user)[userIndexe[user][rating]].ratingValue;
+        if (userIndexe[user][rating] == 0){
+            return 0;
+        }
+        return getUserAll(user)[userIndexe[user][rating]-1].ratingValue;
     }
 }
