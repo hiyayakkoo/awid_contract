@@ -14,6 +14,10 @@ contract Rating {
         uint256 ratingValue;
     }
 
+    function addressToBytes32(address _address) private pure returns (bytes32) {
+        return bytes32(uint256(uint160(_address)) << 96);
+    }
+
     // ユーティリティ
     function convertBytesToRating(bytes memory ratingBytes) public pure returns (address, uint256) {
         (Rating memory rating) = abi.decode(ratingBytes, (Rating));
@@ -48,5 +52,42 @@ contract Rating {
         Attestation memory rating = eas.getAttestation(users[userAddress]);
         (address user, uint256 ratingValue) = convertBytesToRating(rating.data);
         return ratingValue;
+    }
+
+    // EASに値を保存する
+    function setRatingFor(address user,uint256 ratingValue) private {
+        bytes memory rating = convertRatingToBytes(user,ratingValue);
+
+        bytes32 uId = eas.attest(
+            AttestationRequest(
+                {
+                schema: SCHEMA_ID,
+                data: AttestationRequestData({
+                    recipient: user,
+                    expirationTime: 0,
+                    revocable: true,
+                    data: rating,
+                    refUID: addressToBytes32(address(this)),
+                    value: 0
+                })
+            })
+        );
+
+        if (users[user] != 0){
+            eas.revoke(
+                RevocationRequest(
+                    {
+                        schema: SCHEMA_ID,
+                        data: 
+                        RevocationRequestData({
+                            uid: users[user],
+                            value: 0
+                        })
+                    }
+                )
+            );
+        }
+
+        users[user] = uId;
     }
 }
