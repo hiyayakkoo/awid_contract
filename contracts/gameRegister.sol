@@ -1,5 +1,7 @@
 pragma solidity ^0.8.9;
 
+import "./IRatingUpdate.sol";
+
 contract GameRegister {
 
     // gameアドレスとgameDescriptionやgameTitleをmap
