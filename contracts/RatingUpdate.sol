@@ -1,21 +1,42 @@
-// SPDX-License-Identifier: None
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-contract RatingUpdate {
-    address[] private ratingContracts;
+import './IRating.sol';
 
-    // ratingに対し計算をさせる
+contract RatingUpdate {
+    struct RatingContractInfo {
+        address contractAddr;
+        bool isEnable;
+    }
+
+    RatingContractInfo[] private ratingContracts;
+
     function updateRatingValue(address winner, address loser) public {
-        for (uint i = 0; i < ratingContracts.length; i++) {
-        // addressのratingに対して計算を要求する
+        for (uint256 i = 0; i < ratingContracts.length; i++) {
+            if (ratingContracts[i].isEnable) {
+                IRating target = IRating(ratingContracts[i].contractAddr);
+                target.update(winner, loser);
+            }
         }
     }
 
-    // ratingを登録する
     function registerRating(address ratingContract) public {
+        for (uint256 i = 0; i < ratingContracts.length; i++) {
+            if (ratingContracts[i].contractAddr == ratingContract) {
+                ratingContracts[i].isEnable = true;
+                return;
+            }
+        }
+
+        ratingContracts.push(RatingContractInfo(ratingContract, true));
     }
 
-    // ratingを解除する
     function unregisterRating(address ratingContract) public {
+        for (uint256 i = 0; i < ratingContracts.length; i++) {
+            if (ratingContracts[i].contractAddr == ratingContract) {
+                ratingContracts[i].isEnable = false;
+                return;
+            }
+        }
     }
 }
