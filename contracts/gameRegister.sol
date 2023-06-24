@@ -13,7 +13,9 @@ contract GameRegister {
     mapping ( address => gameDescription ) gameDescriptions;
     
     // gameアドレスからrating一覧を取得する
-    function getEatingAddress(address gameAddress)public view {
+    function getEatingAddress(address gameAddress) view public returns (RatingContractInfo[] memory){
+        IRatingUpdate ratingUpdate = IRatingUpdate(gameAddress);
+        return ratingUpdate.getConnectionRatings();
     }
 
     // gameを登録する

@@ -8,5 +8,5 @@ struct RatingContractInfo {
 }
 
 interface IRatingUpdate {
-    function getConnectionRatings() external returns (RatingContractInfo[] memory);
+    function getConnectionRatings() view external returns (RatingContractInfo[] memory);
 }
