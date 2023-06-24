@@ -90,4 +90,28 @@ contract Rating {
 
         users[user] = uId;
     }
+
+    // ratingを計算する
+    function recalculateRatings(uint256 winnerRating,uint256 loserRating) public view returns(uint256,uint256){
+        // ↓フロントエンドでの実装時はここに入力される
+        // 現在はeloratingの実装
+        int256 ratingDifference = int256(winnerRating) - int256(loserRating);
+        uint256 myChanceToWin = 32 - uint256((ratingDifference * 32) / 400);
+
+        if (winnerRating + myChanceToWin > winnerRating) {
+            winnerRating += myChanceToWin;
+        } else {
+            winnerRating = type(uint256).max;
+        }
+        
+        if (loserRating > myChanceToWin) {
+            loserRating -= myChanceToWin;
+        } else {
+            loserRating = 0;
+        }
+
+        return (winnerRating, loserRating);
+        // 現在はeloratingの実装
+        // ↑フロントエンドでの実装時はここに入力される
+    }
 }
