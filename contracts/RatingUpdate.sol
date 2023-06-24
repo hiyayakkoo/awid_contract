@@ -18,6 +18,10 @@ contract RatingUpdate {
         return ratingContracts[index].contractAddr;
     }
 
+    function getConnectionRatings() view public returns (RatingContractInfo[] memory){
+        return ratingContracts;
+    }
+
     function getRatingContractIndex(address ratingContract) view public returns (uint256) {
         for (uint256 i = 0; i < ratingContracts.length; i++) {
             if (ratingContracts[i].contractAddr == ratingContract) {
