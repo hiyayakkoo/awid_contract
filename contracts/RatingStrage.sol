@@ -2,41 +2,41 @@ pragma solidity ^0.8.9;
 
 contract RatingStrage {
     struct RatingUser {
-        address rating;
+        address user;
         uint256 ratingValue;
     }
 
     struct RatingGame {
-        address user;
+        address rating;
         uint256 ratingValue;
     }
 
     // ratingからユーザー＋レートを出す
     mapping ( address => RatingUser[] ) private gameRatings;
     // rating=>ユーザー=>index
-    mapping ( address => mapping(address => uint256) ) private gameIndexe;
+    mapping ( address => mapping(address => uint256) ) private gameIndexes;
     // ユーザーからrating＋レートを出す
     mapping ( address => RatingGame[] ) private userRatings;
     // ユーザー=>rating=>index
-    mapping ( address => mapping(address => uint256) ) private userIndexe;
+    mapping ( address => mapping(address => uint256) ) private userIndexes;
 
     function postRating(address rating,address user,uint value) public {
-        RatingUser memory game = RatingUser({rating:user,ratingValue:value});
+        RatingUser memory game = RatingUser({user:user,ratingValue:value});
         uint256 gameI = gameRatings[rating].length;
-        if (gameIndexe[rating][user] == 0){
-            gameIndexe[rating][user] = gameI+1;
+        if (gameIndexes[rating][user] == 0){
+            gameIndexes[rating][user] = gameI+1;
             gameRatings[rating].push(game);
         }else{
-            gameRatings[rating][gameIndexe[rating][user]] = game;
+            gameRatings[rating][gameIndexes[rating][user]] = game;
         }
 
         uint256 userI = gameRatings[user].length;
-        RatingUser memory userT = RatingUser({rating:rating,ratingValue:value});
-        if (gameIndexe[user][rating] == 0){
-            gameRatings[user].push(userT);
-            gameIndexe[user][rating] = userI;
+        RatingGame memory userT = RatingGame({rating:rating,ratingValue:value});
+        if (userIndexes[user][rating] == 0){
+            userRatings[user].push(userT);
+            userIndexes[user][rating] = userI;
         }else{
-            gameRatings[user][userIndexe[user][rating]] = userT;
+            userRatings[user][userIndexes[user][rating]] = userT;
         }
     }
 
@@ -49,9 +49,9 @@ contract RatingStrage {
     }
 
     function getUserRating(address rating,address user) public view returns (uint256) {
-        if (userIndexe[user][rating] == 0){
+        if (userIndexes[user][rating] == 0){
             return 0;
         }
-        return getUserAll(user)[userIndexe[user][rating]-1].ratingValue;
+        return getUserAll(user)[userIndexes[user][rating]-1].ratingValue;
     }
 }
