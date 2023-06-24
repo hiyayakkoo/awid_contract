@@ -14,9 +14,9 @@ interface IRatingStorage {
 
     function postRating(address rating,address user,uint value) external;
 
-    function getRatingAll(address rating) external returns(RatingUser[] memory);
+    function getRatingAll(address rating) external view returns(RatingUser[] memory);
 
-    function getUserAll(address user) external returns(RatingGame[] memory);
+    function getUserAll(address user) external view returns(RatingGame[] memory);
 
-    function getUserRating(address rating,address user) external returns(uint256);
+    function getUserRating(address rating,address user) external view returns(uint256);
 }

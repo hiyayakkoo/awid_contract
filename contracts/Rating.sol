@@ -4,7 +4,7 @@ import "./IRatingStorage.sol";
 
 contract Rating {
 
-    IRatingStorage private ratingstorage = IRatingStorage("");
+    IRatingStorage private ratingstorage = IRatingStorage(0x8ABF2979De2FeA109FD20b359AA7a2582339d64e);
 
     struct Rating {
         address EOAAddress;
