@@ -8,6 +8,8 @@ contract GameRegister {
         string description;
     }
 
+    mapping ( address => gameDescription ) gameDescriptions;
+
     // ratingからgameアドレスを取得する
     function getGameAddress(address ratingAddress) public {
     }
@@ -21,6 +23,7 @@ contract GameRegister {
     }
 
     // gameを登録する
-    function registerGameDiscription(address gmaeAddress,string calldata description,string calldata title)public {
+    function registerGameDiscription(address gameAddress,string calldata description,string calldata title) public {
+        gameDescriptions[gameAddress] = gameDescription({title:title,description:description});
     }
 }
