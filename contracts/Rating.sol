@@ -10,6 +10,8 @@ contract Rating {
         address EOAAddress;
         uint256 ratingValue;
     }
+    
+    event RatingUpdated(address userAddress, address attester, uint256 newRating);
 
     // 基本的にここは外から受け取る他は受け取らない？
     function update(address winner, address loser) public {
@@ -36,6 +38,7 @@ contract Rating {
     // EASに値を保存する
     function setRatingFor(address user,uint256 ratingValue) private {
         ratingstorage.postRating(address(this), user, ratingValue);
+        emit RatingUpdated(user, address(this), ratingValue);
     }
 
     // ratingを計算する
@@ -43,19 +46,27 @@ contract Rating {
         // ↓フロントエンドでの実装時はここに入力される
         // 現在はeloratingの実装
         int256 ratingDifference = int256(winnerRating) - int256(loserRating);
-        uint256 myChanceToWin = 32 - uint256((ratingDifference * 32) / 400);
-
-        if (winnerRating + myChanceToWin > winnerRating) {
-            winnerRating += myChanceToWin;
+        int256 myChanceToWin = 32 - ((ratingDifference * 32) / 400);
+        
+        if (myChanceToWin > 31) {
+            myChanceToWin = 31;
+        } else if (myChanceToWin < 1) {
+            myChanceToWin = 1;
+        }
+        
+        if (winnerRating + uint256(myChanceToWin) > winnerRating) {
+            winnerRating += uint256(myChanceToWin);
         } else {
             winnerRating = type(uint256).max;
         }
         
-        if (loserRating > myChanceToWin) {
-            loserRating -= myChanceToWin;
+        if (loserRating > uint256(myChanceToWin)) {
+            loserRating -= uint256(myChanceToWin);
         } else {
             loserRating = 0;
         }
+
+        return (winnerRating, loserRating);
 
         return (winnerRating, loserRating);
         // 現在はeloratingの実装
