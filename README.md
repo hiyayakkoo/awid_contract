@@ -1,25 +1,17 @@
+# Components
+
+- Contract Code: https://github.com/hiyayakkoo/awid_contract/
+- UI Code: https://github.com/hiyayakkoo/awid_frontend
+- Game Code: https://github.com/hiyayakkoo/sushimaster_vs_next
+
 # Contract Address
 
 |Contract | Address |
 |---|---|
-|Rating Storage | 0x8ABF2979De2FeA109FD20b359AA7a2582339d64e| 
-|Rating | 0x865cD5ECBaE43bF5E055497517803C3b9DB722E7| 
-|Rating Contract with Event (Deploy Directly)|0xf53CA8be3E6A539D12d52d177A13FDF4e6965374|
-|Rating Contract（Deploy usigin bytecode）| 0x6248e074964627FE0FEfD52f6d196b0056550973|
-|Rating Update | 0x07167774e345c22005CA50f134Fc3A148dD13dDb |
-|Rating Register | 0x1c2BD0Ef4Cf4DBFE2Af8425695D6B7EeffA77C26 | 
+|Rating Storage (on Sepolia) | 0x1D74488377617388258CA78500dCF415b84ff715| 
+|Rating (on Sepolia)  | 0xf23c27e808657b93adf5de2368de0f601bafc6e0| 
+|Rating Update (on Sepolia)  | 0x1Bc3a68B365e58369B0a8F8b74EfAB82Fd19070d |
+|Rating Register (on Sepolia)  | 0x9020144c4E1E7Ff3De45dD65DF8d07EC6849DA99 | 
 
-
-# Sample Hardhat Project
-
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+# Documents for Game Developer
+https://www.notion.so/Rating-Logic-DB-399a2b6bc46b4165a61f881ff467fcc1
