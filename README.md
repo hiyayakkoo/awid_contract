@@ -4,6 +4,12 @@
 - UI Code: https://github.com/hiyayakkoo/awid_frontend
 - Game Code: https://github.com/hiyayakkoo/sushimaster_vs_next
 
+# Demos
+
+- AWID: https://awid-frontend.vercel.app/
+- Sushimaster vs: https://funny-piroshki-655759.netlify.app/
+
+
 # Contract Address
 
 |Contract | Address |
