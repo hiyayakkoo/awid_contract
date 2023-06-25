@@ -13,5 +13,5 @@
 |Rating Update (on Sepolia)  | 0x1Bc3a68B365e58369B0a8F8b74EfAB82Fd19070d |
 |Rating Register (on Sepolia)  | 0x9020144c4E1E7Ff3De45dD65DF8d07EC6849DA99 | 
 
-# Documents for Game Developer
+# Documents for Game Developers
 https://www.notion.so/Rating-Logic-DB-399a2b6bc46b4165a61f881ff467fcc1
