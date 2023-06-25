@@ -6,7 +6,7 @@ async function main() {
     const signer = (await ethers.getSigners())[0];
 
     // Get an instance of the deployed RatingUpdate contract
-    const ratingRegister = await ethers.getContractAt("RatingRegister", "0xE81206EE4d5726C9F2e50A78cFD47CE9E8fd4d9b", signer);
+    const ratingRegister = await ethers.getContractAt("RatingRegister", "0x490DDb507C77e467F6C572C765CA0861bbDA0aA6", signer);
     console.log("!Creating the rating contract...");
     const tx = await ratingRegister.createRating("Elorating")
     console.log("Transaction Hash:", tx.hash);
